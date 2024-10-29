@@ -16,12 +16,12 @@ public class PierwszyTest extends TestSelenium {
         driver.get("https://www.google.com");
 
 
-        WebElement agreeButton = driver.findElement(By.xpath("//div[@class='QS5gu sy4vM'])[position()=2]"));
+        WebElement agreeButton = driver.findElement(By.xpath("//*[@id='L2AGLb']/div"));
         agreeButton.click();
         WebElement serchField = driver.findElement(By.name("q"));
         serchField.sendKeys("Selenium");
         serchField.sendKeys(Keys.ENTER);
-        WebElement result = driver.findElement(By.xpath("//a[contains(@href,'selenium.dev']//h3"));
+        WebElement result = driver.findElement(By.xpath("//a[contains(@href,'selenium.dev']"));
 
         Assert.assertTrue(result.isDisplayed());
 
