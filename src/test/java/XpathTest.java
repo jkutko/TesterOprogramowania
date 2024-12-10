@@ -122,6 +122,39 @@ public class XpathTest {
         By startsEleme = By.xpath("//*[starts-with(@name, 'user')]");
         driver.findElement(startsEleme);
 
+        By child = By.xpath("//div//child::ul");
+        driver.findElement(child);
+
+        By parent = By.xpath("//div/../..");
+        driver.findElement(parent);
+
+        By descChild = By.xpath("//div//descendant::ul"); // w dol
+        driver.findElement(descChild);
+
+        By ancChild = By.xpath("//div//ancestor::*"); // do gory
+        driver.findElement(ancChild);
+
+        By foll = By.xpath("//img/following::*"); // wystepujace po zadanym tagu
+        driver.findElement(foll);
+
+        By follSib = By.xpath("//img/following-sibling::*"); // wystepujace po zadanym tagu
+        driver.findElement(follSib);
+
+        By preci = By.xpath("//img/preceding::*"); // wystepujace po zadanym tagu
+        driver.findElement(preci);
+
+        By precSib = By.xpath("//img/preceding-sibling::*"); // wystepujace po zadanym tagu
+        driver.findElement(precSib);
+
+        By dicAndLink = By.xpath("//a | //div"); // to i to
+        driver.findElement(dicAndLink);
+
+        By andOp = By.xpath("//input[@name='fname' and @id='fname']"); // musi byc dokladnie to i to
+        driver.findElement(andOp);
+
+        By orOp = By.xpath("//input[@name='fname' or @id='bleble']"); // jedno z 2 musi byc zgodne
+        driver.findElement(orOp);
+
 
     }
 
