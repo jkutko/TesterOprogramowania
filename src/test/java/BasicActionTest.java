@@ -42,6 +42,7 @@ public class BasicActionTest extends TestSelenium{
         car.selectByValue("saab");
 
         //pobranie wartosci listy
+        // w selCheck metoda pobierajaca wart  z listy i porównanie z stringiem
 
         List<WebElement> options = car.getOptions();
         for (WebElement option : options) {
