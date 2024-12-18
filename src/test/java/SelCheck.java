@@ -14,7 +14,7 @@ public  boolean checkOption (String optionText, WebElement element) {
             Select select = new Select(element);
             List<WebElement> options = select.getOptions();
             for(WebElement option : options) {
-               for (option.getText().equals(optionText))
+               for (option.getText().equals(optionText));
                    return true;
             }
         return false;
