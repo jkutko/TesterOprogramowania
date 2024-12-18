@@ -47,6 +47,12 @@ public class BasicActionTest extends TestSelenium{
         for (WebElement option : options) {
             System.out.println(option.getText());
 
+
+            SelectCheck selectCheck = new SelectCheck();
+            System.out.println(selectCheck.checkOption("Audi",selectCar));
+            System.out.println(selectCheck.checkOption("Jeep",selectCar));
+
+
         }
 
 
