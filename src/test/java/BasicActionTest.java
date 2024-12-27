@@ -1,8 +1,5 @@
 import org.checkerframework.checker.units.qual.K;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.Test;
 
@@ -17,7 +14,7 @@ public class BasicActionTest extends TestSelenium{
         driver.get("https://testeroprogramowania.github.io/selenium/");
 
         WebElement basicPageLink = driver.findElement(By.cssSelector("[href='basics.html']"));
-       // System.out.println(basicPageLink.getText());
+        System.out.println(basicPageLink.getText());
         basicPageLink.click();
 
 
@@ -29,11 +26,26 @@ public class BasicActionTest extends TestSelenium{
         WebElement userName = driver.findElement(By.cssSelector("input[name='username']"));
         userName.clear();
         userName.sendKeys("admin");
-        //userName.sendKeys(Keys.ENTER);
-        userName.sendKeys(Keys.TAB);
+        userName.sendKeys(Keys.ENTER);
+        driver.switchTo().alert().accept();
+
+        // przejscie na okno modalne
+        Alert alertFirst = driver.switchTo().alert();
+        alertFirst.accept();
+
+
+        // pobieranie wartosci z pola
+      //  System.out.println(userName.getAttribute("value") );
+
+
+
+      //  userName.sendKeys(Keys.TAB);
         WebElement password = driver.findElement(By.cssSelector("input[name='password']"));
         password.clear();
         password.sendKeys("aaa");
+
+
+
         driver.findElement(By.cssSelector("input[type='checkbox']")).click();
         driver.findElement(By.cssSelector("input[value='male']")).click();
 
@@ -41,17 +53,25 @@ public class BasicActionTest extends TestSelenium{
         Select car = new Select(selectCar);
         car.selectByValue("saab");
 
-        //pobranie wartosci listy
-        // w selCheck metoda pobierajaca wart  z listy i porównanie z stringiem
 
+// pobranie elementow listy i wyswietlenie w terminalu
         List<WebElement> options = car.getOptions();
         for (WebElement option : options) {
             System.out.println(option.getText());
+
+            //pobranie wartosci listy
+            // w selCheck metoda pobierajaca wart  z listy i porównanie z stringiem
 
 
             SelectCheck selectCheck = new SelectCheck();
             System.out.println(selectCheck.checkOption("Audi",selectCar));
             System.out.println(selectCheck.checkOption("Jeep",selectCar));
+
+
+            WebElement paraHiden = driver.findElement(By.cssSelector(".topSecret")); // po css po klasie
+            System.out.println("By text " +paraHiden.getText());
+            System.out.println("By text atrr " +paraHiden.getAttribute("value"));
+            System.out.println("By text cont " +paraHiden.getAttribute("textContent")); // ten wyszukuje gdy ukryte
 
 
         }
