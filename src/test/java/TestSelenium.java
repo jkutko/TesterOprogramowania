@@ -1,20 +1,45 @@
-import org.openqa.selenium.InvalidArgumentException;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class TestSelenium {
 
-
+WebDriver driver;
 
 @Test
         public void openGooglePage(){
 
-   WebDriver driver = getDriver("firefox");
+   driver = getDriver("firefox");
    driver.get("https://www.google.com");
 
+   //okno z cookie
+    driver.switchTo().frame(0);
+
+    // znalezienie przycisku
+    WebElement agreeButton = driver.findElement(By.xpath("//span[contains(text(), 'Zgadzam')]"));
+
+    //klikniecie przycisku
+    agreeButton.click();
+
+    // powrór do pierwotnego okna
+    driver.switchTo().defaultContent();
+
+    // znajdz pole wyszukiwania
+    WebElement searchField = driver.findElement(By.name("q"));
+
+    // wprowadzenie wartosci Selenium do pola
+    searchField.sendKeys("selenium");
+
+    // wciśniecie enter
+    searchField.sendKeys(Keys.ENTER);
+
+    // znalezc rezultat
+    WebElement result = driver.findElement(By.xpath("//a[contains(@href, 'selenium.dev')]//span"));
+
+    Assert.assertTrue(result.isDisplayed());
 
 }
 
