@@ -10,7 +10,9 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 public class WaitTest extends TestSelenium {
 
@@ -38,15 +40,54 @@ public class WaitTest extends TestSelenium {
         wait.ignoring(NoSuchElementException.class);
         wait.withTimeout(Duration.ofSeconds(10)); // ile czasu na odpytywac
         wait.pollingEvery(Duration.ofSeconds(1)); // co ile ma odpytwac 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("p"))); //jak nie ma na stronie to w taki sposob bo inaczej na stronie nie ma i poleci NoSuchExpection
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("p"))); //jak nie ma na stronie to w taki sposob bo inaczej na stronie nie ma i poleci NoSuchExpection
+
+//        driver.findElement(By.cssSelector("p"));
+        waitForElementToExist(By.cssSelector("p"));
 
 
-        driver.findElement(By.cssSelector("p"));
         driver.close();
 
 
+    }
 
 
+//    dodawanie własnego warunku gdy expectedCond nie spełnia oczekiwan
+
+    public void waitForElementToExist(By locator) {
+
+        FluentWait<WebDriver> wait = new FluentWait<>(driver); // fluet nadrzedne do webdriver , musimy sami zdefinowac co ingnorowane ma byc
+        wait.ignoring(NoSuchElementException.class);
+        wait.withTimeout(Duration.ofSeconds(10)); // ile czasu na odpytywac
+        wait.pollingEvery(Duration.ofSeconds(1)); // co ile ma odpytwac
+        
+//        wait.until(new Function<WebDriver, Boolean>() { //utworzenie wlasnej metody, tutaj boolen tzn zwraca true albo false
+//            @Override
+//            public Boolean apply(WebDriver webDriver) {
+//                List<WebElement> elements = driver.findElements(locator);
+//                if(elements.size()>0) {
+//                    System.out.println("Element jest na stronie");
+//                    return true;
+//                } else {
+//                    System.out.println("Elementu nie ma na stronie");
+//                    return false;
+//                }
+//            }
+//        });
+
+// wyrazenie lambda
+
+
+        wait.until((driver) -> {
+                List<WebElement> elements = driver.findElements(locator);
+                if(elements.size()>0) {
+                    System.out.println("Element jest na stronie");
+                    return true;
+                } else {
+                    System.out.println("Elementu nie ma na stronie");
+                    return false;
+                }
+        });
 
     }
 
